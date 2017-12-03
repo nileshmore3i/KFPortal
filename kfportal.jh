@@ -1,0 +1,71 @@
+entity User {
+	username	String,
+	password	String,
+	firstname	String,
+	lastname	String,
+	email	String,
+	phonenumber	String,
+	enable	Boolean,
+	accountExpired	Boolean,
+	accountLocked	Boolean,
+	passwordExpired	Boolean,
+	passwordExpiredDate	Date,
+	lastLoginDate	Timestamp,
+	unsuccessfulCount	Number,
+	authStatus	String,
+	entryBy	ID,
+	entryDate Timestamp,
+	updateBy ID,
+	updateDate Timestamp,
+	version	Number
+}
+
+entity Role{
+    roleName	String,
+    roleDescription	String,
+    maxUsers	Number,
+    entryBy	ID,
+    entryDate	Timestamp,
+    updateBy	ID,
+    updateDate	Timestamp,
+    version	Number
+}
+
+entity Country{
+    desc	String,
+    shortDesc	String,
+    countryCode	String,
+    ISOCode	String
+}
+
+entity State {
+    desc	String,
+    shortDesc	String,
+    countryName	String
+}
+
+entity City {
+    desc	String,
+    shortDesc	String,
+    countryName	String,
+    stateName	String
+}
+
+entity Currency{
+    desc	String,
+    shortDesc	String,
+    currencyCode	String,
+    description	String,
+    countryID	Number,
+    countryName	String,
+    currencyPrecision	Number
+}
+
+relationship OneToOne {
+	Country {currency} to Currency
+}
+relationship OneToMany {
+	Country{state} to State,
+    State{city} to City,
+    User{role} to Role
+}
